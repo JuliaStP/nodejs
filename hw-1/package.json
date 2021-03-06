@@ -8,5 +8,8 @@
   },
   "keywords": [],
   "author": "Julia Andreeva <andreeva_julia@hotmail.com> (https://github.com/JuliaStP)",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^7.1.0"
+  }
 }

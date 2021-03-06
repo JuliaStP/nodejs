@@ -8,9 +8,10 @@ args
   .option('-d, --delete', 'Delete start folder')
   .parse(process.argv);
 
-const startDir = args.start;
-const finishDir = args.finish;
-const deleteStartDir = args.delete;
+const options = args.opts();
+const startDir = options.start;
+const finishDir = options.finish;
+const deleteStartDir = options.delete;
 
 fs.access(startDir, err => {
   if (err) {
