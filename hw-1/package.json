@@ -1,0 +1,12 @@
+{
+  "name": "dz-1",
+  "version": "1.0.0",
+  "description": "node js course",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "Julia Andreeva <andreeva_julia@hotmail.com> (https://github.com/JuliaStP)",
+  "license": "ISC"
+}
