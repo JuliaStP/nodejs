@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const args = require('commander');
+const del = require('del')
+const Observer = require('./observer')
 
 args
   .option('-i, --start [start]', 'Start folder', './start')
@@ -12,6 +14,15 @@ const options = args.opts();
 const startDir = options.start;
 const finishDir = options.finish;
 const deleteStartDir = options.delete;
+
+const observer = new Observer(async () => {
+  console.log(`SORTING COMPLETE`)
+
+  if (options.delete) {
+      console.log('Delete folder', startDir)
+      await del(startDir)
+  }
+})
 
 fs.access(startDir, err => {
   if (err) {
@@ -41,6 +52,7 @@ function sortDir(dir) {
       files.forEach(item => {
         const itemPath = path.join(dir, item);
 
+        observer.addObserver(itemPath)
         fs.stat(itemPath, (err, state) => {
           if (err) {
             console.log('Can not check ' + itemPath);
@@ -54,6 +66,11 @@ function sortDir(dir) {
                 if (err) {
                   fs.mkdir(targetDir, () => {
                     moveFile(item, itemPath, targetFile, targetDir, dir);
+                    observer.removeObserver(itemPath)
+                    fs.unlink(itemPath, () => {
+                      fs.rmdir(dir, () => {});
+                      fs.rmdir(startDir, () => {});
+                    });
                   });
                 } else {
                   moveFile(item, itemPath, targetFile, targetDir, dir);
@@ -62,6 +79,11 @@ function sortDir(dir) {
             }
             if (state.isDirectory()) {
               sortDir(itemPath);
+              observer.removeObserver(itemPath)
+              fs.unlink(itemPath, () => {
+                fs.rmdir(dir, () => {});
+                fs.rmdir(startDir, () => {});
+              });
             }
           }
         });
@@ -91,3 +113,7 @@ function moveFile(item, itemPath, targetFile, targetDir, dir) {
     }
   });
 }
+
+// sortDir(startDir)
+// moveFile(finishDir)
+observer.start('Sorting files')
