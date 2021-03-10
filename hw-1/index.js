@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const args = require('commander');
-const del = require('del')
-const Observer = require('./observer')
+const del = require('del');
+const Observer = require('./observer');
 
 args
   .option('-i, --start [start]', 'Start folder', './start')
@@ -13,14 +13,13 @@ args
 const options = args.opts();
 const startDir = options.start;
 const finishDir = options.finish;
-const deleteStartDir = options.delete;
 
 const observer = new Observer(async () => {
   console.log(`SORTING COMPLETE`)
 
   if (options.delete) {
       console.log('Delete folder', startDir)
-      await del(startDir)
+      await del([startDir])
   }
 })
 
@@ -66,24 +65,16 @@ function sortDir(dir) {
                 if (err) {
                   fs.mkdir(targetDir, () => {
                     moveFile(item, itemPath, targetFile, targetDir, dir);
-                    observer.removeObserver(itemPath)
-                    fs.unlink(itemPath, () => {
-                      fs.rmdir(dir, () => {});
-                      fs.rmdir(startDir, () => {});
-                    });
                   });
                 } else {
                   moveFile(item, itemPath, targetFile, targetDir, dir);
+                  observer.removeObserver(itemPath)
                 }
               });
             }
             if (state.isDirectory()) {
               sortDir(itemPath);
               observer.removeObserver(itemPath)
-              fs.unlink(itemPath, () => {
-                fs.rmdir(dir, () => {});
-                fs.rmdir(startDir, () => {});
-              });
             }
           }
         });
@@ -104,16 +95,8 @@ function moveFile(item, itemPath, targetFile, targetDir, dir) {
   fs.link(itemPath, targetFile, err => {
     const result = err ? '[error]' : '[success]';
     console.log(itemPath + ' moved to ' + targetFile + ' ' + result);
-
-    if (deleteStartDir) {
-      fs.unlink(itemPath, () => {
-        fs.rmdir(dir, () => {});
-        fs.rmdir(startDir, () => {});
-      });
-    }
+    observer.removeObserver(itemPath)
   });
 }
 
-// sortDir(startDir)
-// moveFile(finishDir)
 observer.start('Sorting files')
