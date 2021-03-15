@@ -4,7 +4,7 @@ const timeout = process.env.TM || 1000;
 const interval = process.env.INT || 100;
 
 http.createServer((req, res) => {
-  if (req.url === '/') {
+  if (req.url) {
     console.log('Started Time: ' + timeout + ', Interval:' + interval);
 
     let timerOn = true;
@@ -23,5 +23,7 @@ http.createServer((req, res) => {
         res.end('<h1>' + Date() + '</h1>');
       }
     }, interval);
+  } else {
+    console.error("There was an error");
   }
-}).listen(5500);
+}).listen(5500)
