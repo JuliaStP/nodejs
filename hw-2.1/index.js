@@ -97,41 +97,43 @@ function getStat (path) {
   });
 }
 // 2 If max
-function sortDir (dir) {
-  return new Promise((resolve, reject) => {
-    readDir(dir).then(files => {
-      Promise.all(files.map(item => {
-        return new Promise((resolve, reject) => {
-          const itemPath = path.join(dir, item);
+const sortDir = async (dir) => {
+  const detectedFiles = [];
 
-          getStat(itemPath).then(state => {
-            if (state.isFile()) {
-              const letter = item[0].toUpperCase();
-              const targetDir = path.join(finishDir, letter);
-              const targetFile = path.join(targetDir, item);
+  async function readdir(dir) {
+    const files = await readDir(dir)
 
-              checkAccess(targetDir).then(() => {
-                moveFile(item, itemPath, targetFile, targetDir, dir).then(resolve).catch(reject);
-              }).catch(() => {
-                createDir(targetDir).then(() => {
-                  moveFile(item, itemPath, targetFile, targetDir, dir).then(resolve).catch(reject);
-                }).catch(() => {
-                  moveFile(item, itemPath, targetFile, targetDir, dir).then(resolve).catch(reject);
-                });
-              });
-            }
+    for (let index = 0; index < files.length; index++) {
+      const itemPath = path.join(dir, item);
+      const stats = getStat(itemPath);
 
-            if (state.isDirectory()) {
-              sortDir(itemPath).then(resolve).catch(reject);
-            }
-          }).catch(reject);
-        });
-      })).then(resolve).catch(reject);
-    }).catch(err => {
-      console.log('Can not read finish folder');
-      reject(err);
-    });
-  });
+      if (stats.isDirectory()) {
+        await sortDir(itemPath)
+      } else {
+        const letter = item[0].toUpperCase();
+        const targetDir = path.join(finishDir, letter);
+        const targetFile = path.join(targetDir, item);
+        const checkedAccess = await checkAccess(targetDir)
+
+        if (checkedAccess) {
+          detectedFiles.push(moveFile(item, itemPath, targetFile, targetDir, dir))
+        } else {
+          await createDir(targetDir)
+          detectedFiles.push(moveFile(item, itemPath, targetFile, targetDir, dir))
+        }
+      }
+    }
+
+    try {
+      await readdir(dir)
+  
+      Promise.all(detectedFiles).then(() => {
+        console.log('sorting complete')
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
 }
 
 function moveFile (item, itemPath, targetFile, targetDir, dir) {
