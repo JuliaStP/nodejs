@@ -11,7 +11,6 @@ args
 const options = args.opts();
 const startDir = options.start;
 const finishDir = options.finish;
-const deleteDir = options.delete;
 
 sortFiles(startDir, finishDir).then(() => {
   console.log('DONE!');
@@ -26,25 +25,19 @@ function sortFiles (startDir, finishDir) {
         await checkAccess(startDir);
       } catch (err) {
         console.log('Start folder does not exist');
-        reject(err);
+        resolve(false);
       }
 
       try {
         await checkAccess(finishDir);
-      } catch (err) {
-        try {
-          await createDir(finishDir);
-        } catch (err) {
-          console.log('Can not create finish folder');
-          reject(err);
-        }
-      }
+        await createDir(finishDir);
+      } catch (err) {}
 
       try {
         await sortDir(startDir);
       } catch (err) {}
 
-      resolve();
+      resolve(true);
     })();
   });
 }
@@ -53,9 +46,9 @@ function checkAccess (path) {
   return new Promise((resolve, reject) => {
     fs.access(path, err => {
       if (err) {
-        reject(err);
+        resolve(false);
       } else {
-        resolve();
+        resolve(true);
       }
     });
   });
@@ -103,16 +96,16 @@ const sortDir = async (dir) => {
   async function readdir(dir) {
     const files = await readDir(dir)
 
-    for (let index = 0; index < files.length; index++) {
-      const itemPath = path.join(dir, item);
-      const stats = getStat(itemPath);
+    for (let item = 0; item< files.length; item++) {
+      const itemPath = path.join(dir, files[item]);
+      const stats = await getStat(itemPath);
 
       if (stats.isDirectory()) {
-        await sortDir(itemPath)
+        await readdir(dir)
       } else {
-        const letter = item[0].toUpperCase();
+        const letter = files[item][0].toUpperCase();
         const targetDir = path.join(finishDir, letter);
-        const targetFile = path.join(targetDir, item);
+        const targetFile = path.join(targetDir, files[item]);
         const checkedAccess = await checkAccess(targetDir)
 
         if (checkedAccess) {
@@ -123,16 +116,15 @@ const sortDir = async (dir) => {
         }
       }
     }
+  }
+  try {
+    await readdir(dir)
 
-    try {
-      await readdir(dir)
-  
-      Promise.all(detectedFiles).then(() => {
-        console.log('sorting complete')
-      })
-    } catch (err) {
-      console.error(err)
-    }
+    Promise.all(detectedFiles).then(() => {
+      console.log('sorting complete')
+    })
+  } catch (err) {
+    console.error(err)
   }
 }
 
@@ -149,13 +141,6 @@ function moveFile (item, itemPath, targetFile, targetDir, dir) {
     fs.link(itemPath, targetFile, err => {
       const result = err ? '[error]' : '[success]';
       console.log(itemPath + ' moved to ' + targetFile + ' ' + result);
-
-      if (deleteDir) {
-        fs.unlink(itemPath, () => {
-          fs.rmdir(dir, () => {});
-          fs.rmdir(startDir, () => {});
-        });
-      }
 
       if (err) {
         reject(err);
