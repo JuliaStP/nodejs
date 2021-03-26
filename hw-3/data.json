@@ -1,0 +1,92 @@
+{
+  "skills": [
+    {
+      "number": 12,
+      "text": "Возраст начала занятий на скрипке"
+    },
+    {
+      "number": 76,
+      "text": "Концертов отыграл"
+    },
+    {
+      "number": 30,
+      "text": "Максимальное число городов в туре"
+    },
+    {
+      "number": 20,
+      "text": "Лет на сцене в качестве скрипача"
+    },
+    {
+      "age": "5",
+      "concerts": "5",
+      "cities": "5",
+      "years": "5"
+    }
+  ],
+  "products": [
+    {
+      "src": "./assets/img/products/Work1.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "src": "./assets/img/products/Work2.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "src": "./assets/img/products/Work3.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "src": "./assets/img/products/Work4.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "src": "./assets/img/products/Work5.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "src": "./assets/img/products/Work6.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "src": "./assets/img/products/Work7.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "src": "./assets/img/products/Work8.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "src": "./assets/img/products/Work9.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "photo": "apple.jpg",
+      "name": "apple",
+      "price": "300"
+    }
+  ],
+  "users": [
+    {
+      "email": "julia@mail.ru",
+      "salt": "56e907870a014ba8dc7d2bc454be949c",
+      "hash": "c9fa0df9b4209bc1124847c1a249adebd4f39e97302cf2638ac83e7b019073cd73bab028b749f11d13211c2641fc84c5135d855bd3ad184fb2e74fba46bffac0"
+    }
+  ],
+  "messages": [
+    {
+      "name": "Iuliia Andreeva",
+      "email": "andreeva_julia@hotmail.com",
+      "message": "вапвап"
+    }
+  ]
+}
