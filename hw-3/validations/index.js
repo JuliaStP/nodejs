@@ -48,7 +48,7 @@ const validateSkillsForm = () => {
 
 const validateUploadForm = () => {
   return [
-    body('photo').not().isEmpty(),
+    body('src').not().isEmpty(),
     body('name').not().isEmpty(),
     body('price').not().isEmpty()
   ]

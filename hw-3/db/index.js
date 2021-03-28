@@ -30,13 +30,21 @@ const getUserByEmail = (email) => {
   return db.get('users').find({ email }).value()
 }
 
-const getArr = (age, concerts, cities, years) => {
-  return db.get('skills').find({age, concerts, cities, years}).value()
+const updateSkill = (data) => {
+  data = require('../routes/admin')
+
+  Object.keys(data).forEach((item, i) => {
+      if (data[item]) {
+          db.get(`skills[${i}]`)
+              .set('number', data[item])
+              .write()
+      }
+  });
 }
 
 module.exports = {
   get,
   add,
   getUserByEmail,
-  getArr
+  updateSkill
 };

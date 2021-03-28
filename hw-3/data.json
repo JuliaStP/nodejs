@@ -1,26 +1,24 @@
 {
   "skills": [
     {
-      "number": 12,
+      "number": "s",
       "text": "Возраст начала занятий на скрипке"
     },
     {
-      "number": 76,
+      "number": "k",
       "text": "Концертов отыграл"
     },
     {
-      "number": 30,
+      "number": "i",
       "text": "Максимальное число городов в туре"
     },
     {
-      "number": 20,
+      "number": "l",
       "text": "Лет на сцене в качестве скрипача"
     },
     {
-      "age": "5",
-      "concerts": "5",
-      "cities": "5",
-      "years": "5"
+      "number": "l",
+      "text": "Лет на сцене в качестве скрипача"
     }
   ],
   "products": [
@@ -70,9 +68,14 @@
       "price": 600
     },
     {
-      "photo": "apple.jpg",
-      "name": "apple",
-      "price": "300"
+      "src": "/upload/small.jpg",
+      "name": "small",
+      "price": "321"
+    },
+    {
+      "src": "/upload/owl.png",
+      "name": "owl",
+      "price": "100"
     }
   ],
   "users": [

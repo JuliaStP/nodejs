@@ -2,8 +2,6 @@ const express = require('express')
 const router = express.Router()
 const db = require('../db')
 const { validateSkillsForm, validateUploadForm, validationResult} = require('../validations')
-const fs = require('fs')
-const path = require('path')
 const controller = require('../controllers')
 
 router.get('/', (req, res, next) => {
@@ -22,15 +20,19 @@ router.post('/skills', ...validateSkillsForm(), (req, res, next) => {
   
       return res.redirect('/admin')
     }
-  
-    db.add('skills', {
-      age: req.body.age,
-      concerts: req.body.concerts,
-      cities: req.body.cities,
-      years: req.body.years
-    })
+    
+    const data = req.body
 
+    db.updateSkill
+    ('skills', {
+      age: data.age,
+      concerts: data.concerts,
+      cities: data.cities,
+      years: data.years
+    })
+    
     req.flash('skill', 'Skills has been added!')
+    
     res.redirect('/admin')
 })
 
