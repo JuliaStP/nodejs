@@ -2,8 +2,20 @@ const formidable = require('formidable')
 const fs = require('fs')
 const path = require('path')
 const db = require('../db')
-const { validateUploadForm, validationResult} = require('../validations')
 
+
+const validation = (fields, files, dir) => {
+  if (dir === '') {
+    return  { errors: new Error('All fields must be filled - photo'), err: null }
+  }
+  if (fields.name === '') {
+    return { errors: new Error('All fields must be filled - name'), err: null }
+  }
+  if (fields.price === '') {
+    return { errors: new Error('All fields must be filled - price'), err: null }
+  }
+  return { status: 'Ok', err: false }
+}
 
 module.exports.post = (req, res, next) => {
   const form = new formidable.IncomingForm()
@@ -17,33 +29,23 @@ module.exports.post = (req, res, next) => {
 
   form.parse(req, function (errors, fields, files) {
     if (errors) {
-      return next(errors)
+      return next(new Error('Can not upload your file'), null)
     }
 
-    const valid = validateUploadForm(fields, files)
+    const valid = validation(fields, files)
 
     if (valid.errors) {
-      fs.unlinkSync(files.photo.path)
+      fs.unlinkSync(files.src.path)
 
-      return valid.error
+      return next(valid.errors, null)
     }
 
-    const fileName = path.join(upload, files.photo.name)
+    const fileName = path.join(upload, files.src.name)
 
     try { 
-      fs.rename(files.photo.path, fileName, function (errors) {
-        // if (valid.errors) {
-        //   fs.unlinkSync(files.photo.path)
-    
-        //   return valid.error
-        // }
-
-        errors = validationResult(req);
-        console.log(errors.array())
-        if(!errors.isEmpty()) {
-          req.flash('skill', 'Please fill out all fields')
-      
-          return res.redirect('/admin')
+      fs.rename(files.src.path, fileName, function (errors) {
+        if (errors) {
+          return next(new Error('Can not upload your file'), null)
         }
   
         const dir = fileName.substr(fileName.indexOf('\\')).replace(/(\\\\|\\)/g, '/');
@@ -57,23 +59,9 @@ module.exports.post = (req, res, next) => {
         req.flash('product', 'Product has been added!')
         res.redirect('/admin')
       })
-    } catch(error) {
-      req.flash('skill', 'Please fill out all fields')
-      
-      return res.redirect('/admin')
+    } catch(errors) {
+      return next(new Error('Can not upload your file'), null)
     }
   })
 }
 
-// const validation = (fields, files) => {
-//   if (files.photo.name === '' || files.photo.size === 0) {
-//     return  { error: new Error('All fields must be filled') }
-//   }
-//   if (!fields.name) {
-//     return { error: new Error('All fields must be filled') }
-//   }
-//   if (!fields.price) {
-//     return { error: new Error('All fields must be filled') }
-//   }
-//   return { status: 'Ok', err: false }
-// }

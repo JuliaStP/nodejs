@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../db')
-const { validateSkillsForm, validateUploadForm, validationResult} = require('../validations')
+const { validateSkillsForm, validationResult} = require('../validations')
 const controller = require('../controllers')
 
 router.get('/', (req, res, next) => {
@@ -61,6 +61,5 @@ router.post('/skills', ...validateSkillsForm(), (req, res, next) => {
 //     res.redirect('/admin')
 // })
 
-router.post('/upload', controller.post)
-
+router.post('/upload', controller.post) 
 module.exports = router
