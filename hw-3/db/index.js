@@ -31,7 +31,7 @@ const getUserByEmail = (email) => {
 }
 
 const updateSkill = (data) => {
-  data = require('../routes/admin')
+  // data = require('../routes/admin')
 
   Object.keys(data).forEach((item, i) => {
       if (data[item]) {

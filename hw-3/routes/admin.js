@@ -23,16 +23,9 @@ router.post('/skills', ...validateSkillsForm(), (req, res, next) => {
     
     const data = req.body
 
-    db.updateSkill
-    ('skills', {
-      age: data.age,
-      concerts: data.concerts,
-      cities: data.cities,
-      years: data.years
-    })
-    
+    db.updateSkill(data)
+ 
     req.flash('skill', 'Skills has been added!')
-    
     res.redirect('/admin')
 })
 
