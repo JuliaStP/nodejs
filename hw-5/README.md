@@ -1,1 +1,1 @@
-## Loft-systems corporite site
+## Loft-systems corporate site
