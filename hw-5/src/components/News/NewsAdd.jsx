@@ -61,7 +61,7 @@ class NewsAdd extends PureComponent {
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <TextField
-              label="Автор"
+              label="Author"
               value={user}
               onChange={this.handleChange}
               className={classes.textField}
@@ -70,7 +70,7 @@ class NewsAdd extends PureComponent {
               fullWidth
             />
             <TextField
-              label="Дата"
+              label="Date"
               value={createdAt}
               onChange={this.handleChange}
               className={classes.textField}
@@ -79,7 +79,7 @@ class NewsAdd extends PureComponent {
               fullWidth
             />
             <TextField
-              label="Заголовок"
+              label="Title"
               name="title"
               value={title}
               onChange={this.handleChange}
@@ -90,7 +90,7 @@ class NewsAdd extends PureComponent {
           </Grid>
           <Grid item xs={8}>
             <TextField
-              label="Текст"
+              label="Text"
               name="text"
               value={text}
               onChange={this.handleChange}
@@ -102,10 +102,10 @@ class NewsAdd extends PureComponent {
             />
             <ButtonGroup>
               <Button variant="contained" color="secondary" type="submit">
-                Сохранить
+                Save
               </Button>
               <ButtonLink path="/news" variant="contained">
-                Отменить
+                Cancel
               </ButtonLink>
             </ButtonGroup>
           </Grid>

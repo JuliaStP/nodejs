@@ -89,22 +89,23 @@ module.exports.updateProfile = async (req, res) => {
       let password = user.password;
       const { oldPassword, newPassword } = fields;
       if (oldPassword && newPassword) {
-        const isMatch = await bCrypt.compare(oldPassword, user.password);
-        if (!isMatch) {
+        const isMatch = await bCrypt.compare(oldPassword, newPassword);
+        if (isMatch) {
           return res.status(400).json({ message: 'Invalid password' });
         }
         password = await bCrypt.hash(newPassword, 10);
       }
 
+      let username = user.username
       const updateUser = await User.findOneAndUpdate(
         { _id: req.user._id },
-        { ...fields, password, image },
+        { ...fields, username, password, image },
         { new: true }
       );
 
       const response = {
         id: updateUser._id,
-        username: updateUser.username,
+        username: updateUser.userName,
         surName: updateUser.surName,
         firstName: updateUser.firstName,
         middleName: updateUser.middleName,

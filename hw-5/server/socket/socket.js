@@ -50,7 +50,7 @@ module.exports = (server) => {
 
     socket.on('message:history', (data) => {
       if (history[data.userId] && history[data.userId][data.recipientId]) {
-        socket.emit('message:history', [...history[data.userId][data.recipientId], ...history[data.recipientId][data.userId]])
+        socket.emit('message:history', history[data.userId][data.recipientId])
       }
     })
 

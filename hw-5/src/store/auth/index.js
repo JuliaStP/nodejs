@@ -102,7 +102,7 @@ export const loginUser = ({ username, password }) => (dispatch, getState) =>
       getState
     })
       .then(data => {
-        dispatch(openNotification({ text: 'Вы успешно вошли!', variant: 'success' }));
+        dispatch(openNotification({ text: 'You are signed in!', variant: 'success' }));
         const { accessToken, accessTokenExpiredAt, refreshToken, refreshTokenExpiredAt } = data;
         localStorage.setItem(
           'token-data',
@@ -151,7 +151,7 @@ export const registerUser = ({ username, password, firstname, lastname, patronic
       .then(() => {
         dispatch(
           openNotification({
-            text: 'Вы успешно зарегистрированы!',
+            text: 'You are signed up!',
             variant: 'success'
           })
         );
@@ -193,7 +193,7 @@ export const logout = () => dispatch => {
   localStorage.removeItem('token-data');
   dispatch(logoutUser());
   openNotification({
-    text: 'Вы вышли из системы',
+    text: 'You are signed out',
     variant: 'info'
   });
 };
@@ -216,7 +216,7 @@ export const saveProfile = ({ firstName, surName, middleName, oldPassword, newPa
     request({ url: '/profile', method: 'PATCH', data, getState, dispatch })
       .then(data => {
         dispatch(setProfileData(data));
-        dispatch(openNotification({ text: 'Профиль успешно обновлен!', variant: 'success' }));
+        dispatch(openNotification({ text: 'Profile has been updated!', variant: 'success' }));
         resolve(true);
       })
       .catch(error => dispatch(openNotification({ text: error.message, variant: 'error' })))

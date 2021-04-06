@@ -20,7 +20,7 @@ class News extends PureComponent {
       <div className={classes.wrapper}>
         <Container>
           <Typography variant="h4" component="h2" gutterBottom>
-            Новости компании
+            Company news
           </Typography>
 
           <Route path="/news" exact component={NewsList} />

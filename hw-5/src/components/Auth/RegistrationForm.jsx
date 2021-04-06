@@ -49,45 +49,45 @@ const RegistrationForm = ({ classes, dispatch, history }) => {
           id="username"
           handleChange={handleChange('username')}
           value={values.username}
-          label="Имя пользователя"
+          label="Username"
           required
         />
         <AuthFormInput
           id="lastname"
           handleChange={handleChange('lastname')}
           value={values.lastname}
-          label="Фамилия"
+          label="Last name"
         />
         <AuthFormInput
           id="firstname"
           handleChange={handleChange('firstname')}
           value={values.firstname}
-          label="Имя"
+          label="First name"
         />
         <AuthFormInput
           id="patronicname"
           handleChange={handleChange('patronicname')}
           value={values.patronicname}
-          label="Отчество"
+          label="Middle name"
         />
         <PasswordInput
           id="password"
           handleChange={handleChange('password')}
           value={values.password}
-          label="Пароль"
+          label="Password"
         />
         <PasswordInput
           id="repeatPassword"
           handleChange={handleChange('repeatPassword')}
           value={values.repeatPassword}
-          label="Повторить пароль"
+          label="Repeat password"
         />
         <Button color="primary" variant="contained" type="submit">
-          Зарегистрироваться
+          Sign up
         </Button>
       </Paper>
       <Typography className={classNames(classes.textCenter, classes.form)}>
-        Уже зарегистрированы? <Link to={routes.home}>Войти</Link>
+        Already signed up? <Link to={routes.home}>Sign in</Link>
       </Typography>
     </>
   );

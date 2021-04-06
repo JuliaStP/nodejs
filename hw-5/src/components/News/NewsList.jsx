@@ -24,7 +24,7 @@ class NewsList extends PureComponent {
       <>
         {isCreateAllowed && (
           <ButtonLink color="primary" path={`${routes.news}/add`}>
-            Добавить
+            Add news
           </ButtonLink>
         )}
         <div>
@@ -33,7 +33,7 @@ class NewsList extends PureComponent {
             news.length ? (
               news.map(post => <NewsListCard post={post} key={post.id} />)
             ) : (
-              <div>Нет новостей</div>
+              <div>No news</div>
             )
           ) : null}
         </div>

@@ -30,7 +30,7 @@ const ChannelsList = ({ classes, users, selectedRoom, dispatch }) => {
   };
   return (
     <Paper className={classes.column} square>
-      <CardHeader title={<Typography variant="h5">Личные чаты</Typography>} />
+      <CardHeader title={<Typography variant="h5">Private chats</Typography>} />
       <Divider />
       <List>
         {users.map((user, index) => (

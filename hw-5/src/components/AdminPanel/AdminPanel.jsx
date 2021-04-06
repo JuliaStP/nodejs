@@ -134,9 +134,9 @@ class AdminPanel extends PureComponent {
                 className={classes.userAvatar}
               ></Avatar>
               <FormControl className={classes.userSelect}>
-                <InputLabel htmlFor="age-simple">Выберите пользователя</InputLabel>
+                <InputLabel htmlFor="age-simple">Choose user</InputLabel>
                 <Select value={selectedUserId} onChange={this.handleChangeUser}>
-                  <MenuItem value={null}>Не выбран</MenuItem>
+                  <MenuItem value={null}>Not chosen</MenuItem>
                   {users.map(user => (
                     <MenuItem value={user.id} key={user.id}>
                       {user.username}

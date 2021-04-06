@@ -28,9 +28,9 @@ class Auth extends PureComponent {
       <div className={classes.wrapper}>
         <Container>
           <Typography variant="h4" component="h2" gutterBottom>
-            Ваше уютное
+            Your cosy
             <br />
-            рабочее пространство
+            working space
           </Typography>
           {isAuthorized ? (
             <LogoutForm />

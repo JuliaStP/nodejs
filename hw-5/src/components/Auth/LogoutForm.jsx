@@ -21,7 +21,7 @@ const LogoutForm = ({ classes, dispatch }) => {
   return (
     <Paper className={classes.form} component="form" onSubmit={handleSubmit}>
       <Button color="primary" variant="contained" type="submit">
-        Выйти
+        Sign out
       </Button>
     </Paper>
   );

@@ -49,7 +49,7 @@ class Chat extends PureComponent {
             </Grid>
             <Grid item xs={8}>
               <Card className={classes.column} square>
-                { selectedRoom ? <ChatActiveChatArea messages={messages} /> : <div className={classes.empty}>Выберите чат</div> }
+                { selectedRoom ? <ChatActiveChatArea messages={messages} /> : <div className={classes.empty}>Select chat</div> }
               </Card>
             </Grid>
           </Grid>

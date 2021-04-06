@@ -91,7 +91,7 @@ class ActiveChannelArea extends PureComponent {
                 onChange={this.handleChange}
               />
               <Button variant="contained" color="primary" type="submit">
-                Отправить
+                Send
               </Button>
             </form>
           </CardActions>

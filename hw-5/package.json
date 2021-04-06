@@ -2,6 +2,9 @@
   "name": "loftschool-nodejs-project",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "14.16.0"
+  },
   "dependencies": {
     "@material-ui/core": "^4.3.3",
     "@material-ui/icons": "^4.2.1",
@@ -40,7 +43,7 @@
     "ws": "^7.4.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

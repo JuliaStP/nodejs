@@ -52,8 +52,8 @@ const NewsListCard = withStyles(styles)(({ classes, post, dispatch, permission }
         </Typography>
       </CardContent>
       <CardActions>
-      { isUpdateAllowed && <ButtonLink path={`/news/${post.id}/edit`}>Редактировать</ButtonLink> }
-      { isDeleteAllowed && <Button onClick={removeNews}>Удалить</Button> }
+      { isUpdateAllowed && <ButtonLink path={`/news/${post.id}/edit`}>Update</ButtonLink> }
+      { isDeleteAllowed && <Button onClick={removeNews}>Delete</Button> }
       </CardActions>
     </Card>
   );

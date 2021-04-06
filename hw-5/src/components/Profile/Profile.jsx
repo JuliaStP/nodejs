@@ -153,7 +153,7 @@ class Profile extends PureComponent {
                   component="label"
                   color="primary"
                 >
-                  Выбрать файл
+                  Choose file
                   <input
                     type="file"
                     style={{ display: 'none' }}
@@ -165,11 +165,11 @@ class Profile extends PureComponent {
               <Grid item xs={8}>
                 <Grid container direction="column" style={{ height: '100%' }}>
                   <Typography variant="h4" component="h2" gutterBottom>
-                    Общая информация
+                    Your profile
                   </Typography>
                   <div className={classes.form}>
                     <TextField
-                      label="Фамилия"
+                      label="Last name"
                       className={classes.textField}
                       margin="normal"
                       name="surName"
@@ -177,7 +177,7 @@ class Profile extends PureComponent {
                       onChange={this.handleChange}
                     />
                     <TextField
-                      label="Имя"
+                      label="First name"
                       className={classes.textField}
                       margin="normal"
                       name="firstName"
@@ -185,7 +185,7 @@ class Profile extends PureComponent {
                       onChange={this.handleChange}
                     />
                     <TextField
-                      label="Отчество"
+                      label="Middle name"
                       className={classes.textField}
                       margin="normal"
                       name="middleName"
@@ -194,25 +194,25 @@ class Profile extends PureComponent {
                     />
                   </div>
                   <Typography variant="h4" component="h2" gutterBottom>
-                    Пароль
+                    Password
                   </Typography>
                   <div className={classes.form}>
                     <PasswordInput
-                      label="Старый пароль"
+                      label="Old password"
                       className={classes.textField}
                       name="oldPassword"
                       value={oldPassword}
                       handleChange={this.handleChange}
                     />
                     <PasswordInput
-                      label="Новый пароль"
+                      label="New password"
                       className={classes.textField}
                       name="newPassword"
                       value={newPassword}
                       handleChange={this.handleChange}
                     />
                     <PasswordInput
-                      label="Подтверждение пароля"
+                      label="Repeat new password"
                       className={classes.textField}
                       name="confirmPassword"
                       value={confirmPassword}
@@ -226,10 +226,10 @@ class Profile extends PureComponent {
                       disabled={isLoading}
                       onClick={this.submitHandler}
                     >
-                      Сохранить
+                      Save
                     </Button>
                     <Button variant="outlined" onClick={this.cancelHandler} disabled={isLoading}>
-                      Сбросить
+                      Clear
                     </Button>
                   </CardActions>
                 </Grid>

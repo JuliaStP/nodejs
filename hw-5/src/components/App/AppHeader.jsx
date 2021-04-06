@@ -25,18 +25,18 @@ class AppHeader extends PureComponent {
       <>
         {_get(permissions, 'news.R', false) && (
           <ButtonLink path={routes.news} isRouterLink>
-            Новости
+            News
           </ButtonLink>
         )}
         {_get(permissions, 'chat.R', false) && (
           <ButtonLink path={routes.chat} isRouterLink>
-            Чат
+            Chat
           </ButtonLink>
         )}
 
         {_get(permissions, 'settings.R', false) && (
           <ButtonLink path={routes.adminPanel} isRouterLink>
-            Админка
+            Admin
           </ButtonLink>
         )}
         <ButtonLink path={routes.profile} isRouterLink>
@@ -56,7 +56,7 @@ class AppHeader extends PureComponent {
                 <img src="../../assets/img/logo.png" alt="logo" />
               </div>
               <ButtonLink path={routes.home} isRouterLink>
-                Главная
+                Home
               </ButtonLink>
               {isAuthorized ? this.renderAuthorizedNav() : null}
             </Toolbar>

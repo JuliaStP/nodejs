@@ -42,21 +42,21 @@ const LoginForm = ({ classes, dispatch }) => {
           handleChange={handleChange('username')}
           value={values.username}
           id="username"
-          label="Имя пользователя"
+          label="Username"
           required
         />
         <PasswordInput
           handleChange={handleChange('password')}
           value={values.password}
           id="password"
-          label="Пароль"
+          label="Password"
         />
         <Button color="primary" variant="contained" type="submit">
-          Войти
+          Sign in
         </Button>
       </Paper>
       <Typography className={classNames(classes.textCenter, classes.form)}>
-        Впервые на сайте? <Link to={routes.registration}>Регистрация</Link>
+        Visitng for the first time? <Link to={routes.registration}>Sign up</Link>
       </Typography>
     </>
   );
