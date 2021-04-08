@@ -12,7 +12,7 @@ app.use('/api', require('./routes'))
 
 app.use('*', (_req, res) => {
   const file = path.resolve(__dirname, '../build', 'index.html')
-  res. sendFile(file) //check
+  res. sendFile(file) 
 })
 
 app.use((err, _, res, __) => {
