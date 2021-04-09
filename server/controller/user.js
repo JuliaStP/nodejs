@@ -9,8 +9,6 @@ const bCrypt = require("bcryptjs");
 const Jimp = require("jimp");
 const fs = require("fs");
 const util = require("util");
-const { useFormControl } = require("@material-ui/core");
-const { LensTwoTone } = require("@material-ui/icons");
 
 module.exports.registration = async (req, res) => {
   const { username } = req.body;
@@ -92,32 +90,26 @@ module.exports.updateProfile = async (req, res) => {
 
       let username = user.username
 
+      const { oldPassword, newPassword } = fields;
+      let password = user.password;
+
+      if (oldPassword && newPassword) {
+        const isMatch = user.validPassword(oldPassword, user.password);
+        if (!isMatch) {
+          res.status(400).json({ message: 'Invalid password' });
+        }
+        user.setPassword(newPassword)
+        user = await user.save()
+        password = await user.validPassword(newPassword, 10);
+      }
+
       const updateUser = await User.findOneAndUpdate(
         { _id: req.user._id },
-        { ...fields, username, image },
+        { ...fields, password, username, image },
         { new: true }
-      )
+      );
 
-      // const { oldPassword, newPassword } = fields;
-      // let password = user.password;
-
-      // if (oldPassword && newPassword) {
-      //   let user = await User.findByIdAndUpdate(
-      //     { _id: req.user.id },
-      //     { oldPassword }
-      //   );
-      //   console.log(oldPassword);
-        
-      // }if (!user.validPassword(fields.oldPassword)) {
-      //   res.status(400).json({ message: 'Invalid password' })
-      // }
-      // if (user.validPassword(fields.oldPassword)) {
-      //   user.setPassword(newPassword);
-      //   user = await user.save();
-      //   return user;
-      // } 
-
-      const response = {
+      let response = {
         id: updateUser._id,
         username: updateUser.userName,
         surName: updateUser.surName,
@@ -126,31 +118,6 @@ module.exports.updateProfile = async (req, res) => {
         permission: updateUser.permission,
         image: image,
       };
-
-      const { oldPassword, newPassword, confirmPassword } = fields;
-      let password = user.password;
-
-      if (oldPassword && newPassword) {
-        let user = await User.findByIdAndUpdate(
-          { _id: req.user.id },
-          { oldPassword }
-        );
-        if (!user.validPassword(oldPassword)) {
-          res.status(400).json({ message: 'Invalid password' })
-        }
-        if (oldPassword === newPassword) {
-          res.status(400).json({ message: 'New password can not be Old password' })
-        }
-        if (newPassword !== confirmPassword) {
-          res.status(400).json({ message: 'Passwords do not match' })
-        }
-      }
-
-      if (user.validPassword(fields.oldPassword)) {
-        user.setPassword(newPassword);
-        user = await user.save();
-        return user;
-      } 
 
       res.status(201).json(response);
     });
