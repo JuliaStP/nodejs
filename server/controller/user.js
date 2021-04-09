@@ -135,21 +135,24 @@ module.exports.updateProfile = async (req, res) => {
           { _id: req.user.id },
           { oldPassword }
         );
-      }if (!user.validPassword(oldPassword)) {
-        res.status(400).json({ message: 'Invalid password' })
+        if (!user.validPassword(oldPassword)) {
+          res.status(400).json({ message: 'Invalid password' })
+        }
+        if (oldPassword === newPassword) {
+          res.status(400).json({ message: 'New password can not be Old password' })
+        }
+        if (newPassword !== confirmPassword) {
+          res.status(400).json({ message: 'Passwords do not match' })
+        }
       }
-      if (oldPassword === newPassword) {
-        res.status(400).json({ message: 'New password can not be Old password' })
-      }
-      if (newPassword !== confirmPassword) {
-        res.status(400).json({ message: 'Passwords do not match' })
-      }
-      res.status(201).json(response);
+
       if (user.validPassword(fields.oldPassword)) {
         user.setPassword(newPassword);
         user = await user.save();
         return user;
       } 
+
+      res.status(201).json(response);
     });
   } catch (e) {
     console.log(e);
