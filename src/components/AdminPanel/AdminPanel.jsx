@@ -159,21 +159,21 @@ class AdminPanel extends PureComponent {
         <Grid container spacing={2} className={classes.mb3}>
           <Grid item xs={4}>
             <SettingsFormGroup
-              label="Настройки системы"
+              label="Settings"
               values={permission['settings']}
               handleChange={this.handleChange('settings')}
             />
           </Grid>
           <Grid item xs={4}>
             <SettingsFormGroup
-              label="Новости"
+              label="News"
               values={permission['news']}
               handleChange={this.handleChange('news')}
             />
           </Grid>
           <Grid item xs={4}>
             <SettingsFormGroup
-              label="Чат"
+              label="Chat"
               values={permission['chat']}
               handleChange={this.handleChange('chat')}
             />
@@ -182,13 +182,13 @@ class AdminPanel extends PureComponent {
         <Grid container spacing={2} justify="center" alignItems="center">
           <ButtonGroup>
             <Button variant="contained" color="secondary" onClick={this.submitHandler}>
-              Сохранить
+              Save
             </Button>
             <Button variant="contained" onClick={this.cancelHandler}>
-              Отменить
+              Cancel
             </Button>
             <Button variant="contained" onClick={this.deleteHandler}>
-              Удалить пользователя
+              Delete user
             </Button>
           </ButtonGroup>
         </Grid>

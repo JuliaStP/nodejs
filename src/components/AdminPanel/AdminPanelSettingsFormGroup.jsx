@@ -21,7 +21,7 @@ const SettingsFormGroup = ({ handleChange, values, label }) => (
             onChange={handleChange("C")}
           />
         }
-        label="Создание"
+        label="Create"
       />
       <FormControlLabel
         control={
@@ -31,7 +31,7 @@ const SettingsFormGroup = ({ handleChange, values, label }) => (
             onChange={handleChange("R")}
           />
         }
-        label="Чтение"
+        label="Read"
       />
       <FormControlLabel
         control={
@@ -41,7 +41,7 @@ const SettingsFormGroup = ({ handleChange, values, label }) => (
             onChange={handleChange("U")}
           />
         }
-        label="Редактирование"
+        label="Update"
       />
       <FormControlLabel
         control={
@@ -51,7 +51,7 @@ const SettingsFormGroup = ({ handleChange, values, label }) => (
             onChange={handleChange("D")}
           />
         }
-        label="Удаление"
+        label="Delete"
       />
     </FormGroup>
   </>
